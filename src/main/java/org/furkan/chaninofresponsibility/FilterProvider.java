@@ -16,7 +16,6 @@ public class FilterProvider {
     private final CustomFilter customFilter;
 
     public FilterProvider(List<CustomFilter> filters) {
-        filters.sort(Comparator.comparingInt(CustomFilter::getOrder));
         this.customFilter = Element.buildChain(filters, new NoopFilter());
     }
 
