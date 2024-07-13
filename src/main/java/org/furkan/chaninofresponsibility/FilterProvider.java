@@ -13,17 +13,14 @@ import java.util.List;
 @Component
 public class FilterProvider {
 
-    private final List<CustomFilter> filters;
+    private final CustomFilter customFilter;
 
     public FilterProvider(List<CustomFilter> filters) {
-        this.filters = filters;
-        this.filters.sort(Comparator.comparingInt(CustomFilter::getOrder));
-        for (int i = 0; i < filters.size() - 1; i++) {
-            filters.get(i).setNextFilter(filters.get(i + 1));
-        }
+        filters.sort(Comparator.comparingInt(CustomFilter::getOrder));
+        this.customFilter = Element.buildChain(filters, new NoopFilter());
     }
 
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        filters.get(0).doFilter(servletRequest, servletResponse, filterChain);
+        customFilter.doFilter(servletRequest, servletResponse, filterChain);
     }
 }

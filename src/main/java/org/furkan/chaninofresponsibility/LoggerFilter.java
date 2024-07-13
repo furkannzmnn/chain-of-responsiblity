@@ -23,9 +23,9 @@ public class LoggerFilter implements CustomFilter {
         }
     }
 
-    @Override
-    public void setNextFilter(CustomFilter nextFilter) {
-        this.nextFilter = nextFilter;
+   @Override
+    public void setNext(CustomFilter step) {
+        this.nextFilter = step;
     }
 
     @Override

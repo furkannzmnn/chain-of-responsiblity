@@ -8,30 +8,20 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Component
-public class RequestHandlerFilter implements CustomFilter {
-
-    private CustomFilter nextFilter;
+public class NoopFilter  implements CustomFilter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("Handling request");
-        System.out.println("Handling response");
-
-        if (nextFilter != null) {
-            nextFilter.doFilter(servletRequest, servletResponse, filterChain);
-        }
-
+        System.out.println("Noop filter");
     }
 
     @Override
     public void setNext(CustomFilter step) {
-        this.nextFilter = step;
+
     }
 
     @Override
     public int getOrder() {
-        return 0;
+        return Integer.MAX_VALUE;
     }
-
 }
